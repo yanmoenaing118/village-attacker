@@ -1,5 +1,9 @@
-import _ from 'lodash';
+import "./style.css";
+import Icon from "./logo.ico";
+const img = new Image();
 
-console.log(_.add(3));
+img.src = Icon;
 
-console.log(_.add(3452))
+document.body.appendChild(img);
+
+console.log(img)
