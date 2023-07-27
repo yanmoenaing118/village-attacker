@@ -8,9 +8,7 @@ export default class Entity {
   pivot: Vec2;
   visible: boolean = true;
 
-  constructor(w: number, h: number) {
-    this.w = w;
-    this.h = h;
+  constructor() {
     this.pos = { x: 0, y: 0 };
     this.scale = { x: 1, y: 1 };
     this.anchor = { x: 0, y: 0 };
