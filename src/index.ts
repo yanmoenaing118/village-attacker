@@ -1,11 +1,8 @@
-import "./style.css";
-import "./b";
-import Icon from "./logo.ico";
-const img = new Image();
+import Game from "./Game";
 
-img.src = Icon;
-
-document.body.appendChild(img);
+const game = new Game();
 
 
+game.run((dt: number, t: number) => {
 
+})

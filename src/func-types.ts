@@ -1,0 +1,1 @@
+export type update = (dt: number, t: number) => void;
