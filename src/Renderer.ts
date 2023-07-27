@@ -13,14 +13,15 @@ export default class Renderer {
   }
 
   render(container: Container<Entity>) {
-    
-    container.children.forEach( child => {
+    const { ctx } = this;
+    container.children.forEach((child) => {
+      ctx.save();
 
-        if(child instanceof Container) {
-            this.render(child);
-        }
+      if (child instanceof Container) {
+        this.render(child);
+      }
 
-    })
-
+      ctx.restore();
+    });
   }
 }
