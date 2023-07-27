@@ -6,6 +6,7 @@ export default class Entity {
   anchor: Vec2;
   rotation: number;
   pivot: Vec2;
+  visible: boolean = true;
 
   constructor(w: number, h: number) {
     this.w = w;
@@ -18,7 +19,7 @@ export default class Entity {
   }
 
   /**
-   * @override 
+   * @override
    */
   update(dt: number, t: number) {}
 }
