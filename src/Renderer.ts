@@ -12,7 +12,12 @@ export default class Renderer {
 
   constructor(width: number, height: number) {
     const canvas = document.createElement("canvas");
+    document.body.appendChild(canvas);
+   
+   
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+   
+   
     canvas.width = width;
     canvas.height = height;
 
@@ -21,13 +26,21 @@ export default class Renderer {
 
     this.canvas = canvas;
     this.ctx = ctx;
+    const dpr = window.devicePixelRatio;
+    const rect = this.canvas.getBoundingClientRect();
 
-    document.body.appendChild(this.canvas);
+    this.canvas.width = rect.width * dpr;
+    this.canvas.height = rect.height * dpr;
+
+    this.ctx.scale(dpr, dpr);
+    this.canvas.style.width = `${rect.width}px`;
+    this.canvas.style.height = `${rect.height}px`;
+
   }
 
   render(container: Container<Entity>) {
     const { ctx } = this;
-    ctx.clearRect(0,0,this.w,this.h);
+    ctx.clearRect(0, 0, this.w, this.h);
 
     container.children.forEach((child) => {
       const { pos, w, h } = child;
@@ -50,7 +63,7 @@ export default class Renderer {
         );
       } else if (child instanceof Sprite) {
         ctx.drawImage(child.texture.img, 0, 0, w, h);
-      } else if (child instanceof DebugGrid ) {
+      } else if (child instanceof DebugGrid) {
         this.renderDebugGrid(child);
       }
 
@@ -60,20 +73,18 @@ export default class Renderer {
 
       ctx.restore();
     });
-
   }
 
   renderDebugGrid(grid: DebugGrid) {
     const { rows, cols } = grid;
 
-    for(let x = 0 ; x < cols + 1; x++ ) {
-        this.drawPath(x * grid.cellSize, 0, 0, grid.h);
+    for (let x = 0; x < cols + 1; x++) {
+      this.drawPath(x * grid.cellSize, 0, 0, grid.h);
     }
 
-    for(let y = 0 ; y < rows + 1; y++) {
-        this.drawPath(0, y * grid.cellSize, grid.w, 0);
+    for (let y = 0; y < rows + 1; y++) {
+      this.drawPath(0, y * grid.cellSize, grid.w, 0);
     }
-
   }
 
   drawPath(x: number, y: number, w: number, h: number) {
@@ -82,11 +93,9 @@ export default class Renderer {
     ctx.beginPath();
     ctx.translate(x, y);
     ctx.moveTo(0, 0);
-    ctx.lineTo(w,h);
+    ctx.lineTo(w, h);
     ctx.stroke();
     ctx.closePath();
     ctx.restore();
-    
-
   }
 }

@@ -7,10 +7,24 @@ import { update } from "./func-types";
 export default class Game {
   renderer: Renderer;
   scene: Container<Entity>;
+  booted = false;
+  w: number;
+  h: number;
 
   constructor(w: number, h: number) {
-    this.renderer = new Renderer(w, h);
+    this.w = w;
+    this.h = h;
     this.scene = new Container<Entity>();
+  }
+
+  load() {
+    const { w, h } = this;
+    return new Promise((resolve, reject) => {
+      window.addEventListener("DOMContentLoaded", () => {
+        this.renderer = new Renderer(w, h);
+        resolve(this);
+      });
+    });
   }
 
   run(updateScene: update) {

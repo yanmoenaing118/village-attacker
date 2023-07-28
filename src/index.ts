@@ -8,19 +8,23 @@ const cellSize = 64;
 const w = cellSize * 9;
 const h = cellSize * 6;
 const game = new Game(w, h);
-const { scene } = game;
+let { scene } = game;
 const container = new Container();
-const texture = new Texture("https://raw.githubusercontent.com/yanmoenaing118/canvas/main/public/spider10.png");
-const tileSprite = new TileSprite(texture,cellSize, cellSize, { x: 0, y: 0});
+const texture = new Texture(
+  "https://raw.githubusercontent.com/yanmoenaing118/canvas/main/public/spider10.png"
+);
+const tileSprite = new TileSprite(texture, cellSize, cellSize, { x: 0, y: 0 });
 const sprite = new Sprite(texture);
-container.add(new DebugGrid(w, h, cellSize))
 
-texture.img.onload = () => {
-    // container.add(tileSprite);
-    // container.add(sprite);
+container.add(new DebugGrid(w, h, 64));
+container.add(tileSprite);
+scene.add(container)
+scene.add(tileSprite);
+
+function update(dt: number, t: number) {
+  console.log(dt, t);
 }
-scene.add(container);
 
-game.run((dt: number, t: number) => {
-  
-})
+game.load().then(() => {
+  game.run(update);
+});
