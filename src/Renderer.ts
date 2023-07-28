@@ -1,4 +1,5 @@
 import Container from "./Container";
+import DebugGrid from "./DebugGrid";
 import Entity from "./Entity";
 import Sprite from "./Sprite";
 import TileSprite from "./TileSprite";
@@ -26,6 +27,8 @@ export default class Renderer {
 
   render(container: Container<Entity>) {
     const { ctx } = this;
+    ctx.clearRect(0,0,this.w,this.h);
+
     container.children.forEach((child) => {
       const { pos, w, h } = child;
       ctx.save();
@@ -47,6 +50,8 @@ export default class Renderer {
         );
       } else if (child instanceof Sprite) {
         ctx.drawImage(child.texture.img, 0, 0, w, h);
+      } else if (child instanceof DebugGrid ) {
+        this.renderDebugGrid(child);
       }
 
       if (child instanceof Container) {
@@ -55,5 +60,33 @@ export default class Renderer {
 
       ctx.restore();
     });
+
+  }
+
+  renderDebugGrid(grid: DebugGrid) {
+    const { rows, cols } = grid;
+
+    for(let x = 0 ; x < cols + 1; x++ ) {
+        this.drawPath(x * grid.cellSize, 0, 0, grid.h);
+    }
+
+    for(let y = 0 ; y < rows + 1; y++) {
+        this.drawPath(0, y * grid.cellSize, grid.w, 0);
+    }
+
+  }
+
+  drawPath(x: number, y: number, w: number, h: number) {
+    const { ctx } = this;
+    ctx.save();
+    ctx.beginPath();
+    ctx.translate(x, y);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(w,h);
+    ctx.stroke();
+    ctx.closePath();
+    ctx.restore();
+    
+
   }
 }
