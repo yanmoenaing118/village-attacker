@@ -1,3 +1,5 @@
+import { Vec2 } from "./interfaces";
+
 export default class Entity {
   w: number;
   h: number;

@@ -1,12 +1,15 @@
 import Game from "./Game";
 import Sprite from "./Sprite";
 import Texture from "./Texture";
+import TileSprite from "./TileSprite";
 
 const game = new Game(1200, 900);
 const { scene } = game;
-
-scene.add(new Sprite(new Texture('https://upload.wikimedia.org/wikipedia/commons/4/44/210604_%EA%B3%A0%EC%9C%A4%EC%A0%95%282%29.jpg')))
-
+const texture = new Texture("https://raw.githubusercontent.com/yanmoenaing118/canvas/main/public/spider10.png");
+const tileSprite = new TileSprite(texture,64, 64, { x: 0, y: 0});
+texture.img.onload = () => {
+    scene.add(tileSprite);
+}
 game.run((dt: number, t: number) => {
   
 })

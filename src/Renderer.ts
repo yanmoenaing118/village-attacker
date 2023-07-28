@@ -1,6 +1,7 @@
 import Container from "./Container";
 import Entity from "./Entity";
 import Sprite from "./Sprite";
+import TileSprite from "./TileSprite";
 
 export default class Renderer {
   canvas: HTMLCanvasElement;
@@ -31,7 +32,20 @@ export default class Renderer {
 
       ctx.translate(pos.x, pos.y);
 
-      if (child instanceof Sprite) {
+      if (child instanceof TileSprite) {
+        const { frame } = child;
+        ctx.drawImage(
+          child.texture.img,
+          frame.x * w,
+          frame.y * h,
+          w,
+          h,
+          0,
+          0,
+          w,
+          h
+        );
+      } else if (child instanceof Sprite) {
         ctx.drawImage(child.texture.img, 0, 0, w, h);
       }
 
