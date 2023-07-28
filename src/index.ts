@@ -3,9 +3,9 @@ import Container from "./Container";
 import DebugGrid from "./DebugGrid";
 import Game from "./Game";
 import Texture from "./Texture";
-const cellSize = 64;
-let w = cellSize * 9;
-let h = cellSize * 6;
+const cellSize = 128;
+let w = 680;
+let h = 480;
 const game = new Game(w, h);
 let { scene } = game;
 
@@ -23,6 +23,6 @@ function update(dt: number, t: number) {
 game.load().then(() => {
   w = game.w;
   h = game.h;
-  container.add(new DebugGrid(w, h, 64));
+  container.add(new DebugGrid(w, h, cellSize));
   game.run(update);
 });
