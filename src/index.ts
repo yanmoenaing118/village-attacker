@@ -19,11 +19,19 @@ const texture = new Texture(
 
 scene.add(container);
 
-const player = new TileSprite(texture, cellSize, cellSize, { x: 0, y: 0});
+const p1 = new TileSprite(texture, cellSize, cellSize, { x: 0, y: 0});
+const p2 = new TileSprite(texture, cellSize, cellSize, { x: 2, y: 4});
+
+p2.pos.x = Math.random() * w;
+p2.pos.y = Math.random() * h;
+
+p1.update = (dt: number, t: number) => {
+  p1.pos.x += controls.x * 320 * dt;
+  p1.pos.y += controls.y * 320 * dt;
+}
 
 function update(dt: number, t: number) {
-  player.pos.x += controls.x * 320 * dt;
-  player.pos.y += controls.y * 320 * dt;
+ 
 }
 
 game.load().then(() => {
@@ -31,6 +39,8 @@ game.load().then(() => {
   h = game.h;
 
   container.add(new DebugGrid(w, h, cellSize));
-  container.add(player);
+  container.add(p1);
+  container.add(p2);
+
   game.run(update);
 });

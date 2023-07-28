@@ -7,6 +7,7 @@ export default class TileSprite extends Sprite {
     super(texture);
     this.w = tileW;
     this.h = tileH;
+    this.hitBox = { x: 0, y: 0, w: this.w, h: this.h}
     this.frame = frame;
   }
 }

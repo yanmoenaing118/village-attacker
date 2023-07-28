@@ -1,4 +1,5 @@
-import { Vec2 } from "./interfaces";
+import { bounds } from "./helpers";
+import { Bounds, Vec2 } from "./interfaces";
 
 export default class Entity {
   w: number;
@@ -9,6 +10,7 @@ export default class Entity {
   rotation: number;
   pivot: Vec2;
   visible: boolean = true;
+  hitBox: Bounds;
 
   constructor() {
     this.pos = { x: 0, y: 0 };
@@ -16,6 +18,7 @@ export default class Entity {
     this.anchor = { x: 0, y: 0 };
     this.rotation = 0;
     this.pivot = { x: 0, y: 0 };
+    this.hitBox = { x: 0, y: 0, w: this.w, h: this.h };
   }
 
   /**
