@@ -18,10 +18,11 @@ export default class Game {
   }
 
   load() {
-    const { w, h } = this;
     return new Promise((resolve, reject) => {
       window.addEventListener("DOMContentLoaded", () => {
-        this.renderer = new Renderer(w, h);
+        this.w = window.innerWidth;
+        this.h = window.innerHeight;
+        this.renderer = new Renderer(this.w, this.h);
         resolve(this);
       });
     });
