@@ -24,6 +24,8 @@ export default class TileMap extends Container<TileSprite> {
             const tile = new TileSprite(texture, tileSize, tileSize, frames[index]);
             tile.pos.x = x * tileSize;
             tile.pos.y = y * tileSize;
+            tile.w = tileSize;
+            tile.h = tileSize;
             this.children.push(tile);
         }
     }

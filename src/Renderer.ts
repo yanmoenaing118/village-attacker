@@ -61,6 +61,7 @@ export default class Renderer {
           w,
           h
         );
+        // debugger
       } else if (child instanceof Sprite) {
         ctx.drawImage(child.texture.img, 0, 0, w, h);
       } else if (child instanceof DebugGrid) {
