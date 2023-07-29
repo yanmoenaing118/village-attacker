@@ -6,6 +6,7 @@ import Texture from "./Texture";
 import TileSprite from "./TileSprite";
 import KeyboardControls from "./KeyControls";
 import Level from "./Level";
+import { clamp } from "./math";
 const cellSize = 64;
 let w = 680;
 let h = 480;
@@ -20,11 +21,14 @@ const texture = new Texture(
 
 scene.add(container);
 
-const p1 = new TileSprite(texture, cellSize, cellSize, { x:7, y: 3 });
+const p1 = new TileSprite(texture, cellSize, cellSize, { x:2, y: 12 });
 
 p1.update = (dt: number, t: number) => {
   p1.pos.x += controls.x * 640 * dt;
   p1.pos.y += controls.y * 640 * dt;
+
+  p1.pos.x = clamp(p1.pos.x, 0, w - cellSize);
+  p1.pos.y = clamp(p1.pos.y, 0, h - cellSize);
 };
 
 function update(dt: number, t: number) {}

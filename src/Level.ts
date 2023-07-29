@@ -3,8 +3,8 @@ import TileMap from "./TileMap";
 import { Frame } from "./interfaces";
 
 const tiles: Frame[] = [
-  { x: 1, y: 4, solid: false },
-  { x: 10, y: 7, solid: true },
+  { x: 1, y: 4, solid: false },// walkable dark path
+  { x: 10, y: 8, solid: true },
 ];
 
 export default class Level extends TileMap {
@@ -13,8 +13,8 @@ export default class Level extends TileMap {
       "https://raw.githubusercontent.com/yanmoenaing118/canvas/main/public/dungeon.png"
     );
 
-    const mapW = Math.floor(w / cellSize);
-    const mapH = Math.floor(h / cellSize);
+    const mapW = Math.ceil(w / cellSize);
+    const mapH = Math.ceil(h / cellSize);
     const frames: Frame[] = [];
 
     for (let y = 0; y < mapH; y++) {
