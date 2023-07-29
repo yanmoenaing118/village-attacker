@@ -5,11 +5,10 @@ export const bounds = (e: Entity): Bounds => {
   return {
     x: e.pos.x + e.hitBox.x,
     y: e.pos.y + e.hitBox.y,
-    w: e.hitBox.w,
-    h: e.hitBox.h,
+    w: e.hitBox.w - 1,
+    h: e.hitBox.h - 1,
   };
 };
-
 
 export const hit = (e1: Entity, e2: Entity) => {
   const b1 = bounds(e1);
