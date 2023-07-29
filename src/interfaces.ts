@@ -5,7 +5,8 @@ export interface Vec2 {
 
 export interface Frame {
     x: number,
-    y: number
+    y: number,
+    [key: string]: any
 }
 
 export interface Bounds {

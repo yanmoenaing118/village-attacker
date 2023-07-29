@@ -18,6 +18,9 @@ export default class TileMap extends Container<TileSprite> {
     this.mapH = mapH;
     this.tileSize = tileSize;
 
+    console.log(frames);
+
+
     for (let y = 0; y < mapH; y++) {
       for (let x = 0; x < mapW; x++) {
         const index = y * mapW + x;
@@ -29,6 +32,8 @@ export default class TileMap extends Container<TileSprite> {
         this.children.push(tile);
       }
     }
+
+    // debugger
   }
 
   pixelToMapPosition(pos: Vec2) {
