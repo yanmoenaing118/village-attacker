@@ -11,6 +11,7 @@ export default class Entity {
   pivot: Vec2;
   visible: boolean = true;
   hitBox: Bounds;
+  debug: boolean;
 
   constructor() {
     this.pos = { x: 0, y: 0 };

@@ -68,6 +68,13 @@ export default class Renderer {
         this.renderDebugGrid(child);
       }
 
+      if(child.debug) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(0,0,0,0.3)'
+        ctx.fillRect(child.hitBox.x, child.hitBox.y, child.hitBox.w, child.hitBox.h);
+        ctx.restore();
+      }
+
       if (child instanceof Container) {
         this.render(child);
       }
