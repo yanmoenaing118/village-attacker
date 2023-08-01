@@ -1,4 +1,4 @@
-import "./style.css";
+import "./assets/style.css";
 import Container from "./Container";
 import DebugGrid from "./DebugGrid";
 import Game from "./Game";
@@ -7,21 +7,22 @@ import TileSprite from "./TileSprite";
 import KeyboardControls from "./KeyControls";
 import Level from "./Level";
 import { clamp } from "./math";
+import dungeonImage from "./assets/dungeon.png";
 const cellSize = 64;
-let w = 680;
-let h = 480;
+let w = 64 * 15;
+let h = 64 * 10;
 const controls = new KeyboardControls();
 const game = new Game(w, h);
 let { scene } = game;
 
 const container = new Container();
-const texture = new Texture(
-  "https://raw.githubusercontent.com/yanmoenaing118/canvas/main/public/dungeon.png"
-);
+const texture = new Texture(dungeonImage);
+
+console.log(dungeonImage);
 
 scene.add(container);
 
-const p1 = new TileSprite(texture, cellSize, cellSize, { x:2, y: 12 });
+const p1 = new TileSprite(texture, cellSize, cellSize, { x: 2, y: 12 });
 
 p1.update = (dt: number, t: number) => {
   p1.pos.x += controls.x * 640 * dt;
@@ -34,8 +35,8 @@ p1.update = (dt: number, t: number) => {
 function update(dt: number, t: number) {}
 
 game.load().then(() => {
-  w = game.w;
-  h = game.h;
+  // w = game.w;
+  // h = game.h;
 
   const level = new Level(w, h, cellSize);
 

@@ -20,8 +20,8 @@ export default class Game {
   load() {
     return new Promise((resolve, reject) => {
       window.addEventListener("DOMContentLoaded", () => {
-        this.w = window.innerWidth;
-        this.h = window.innerHeight;
+        // this.w = window.innerWidth;
+        // this.h = window.innerHeight;
         this.renderer = new Renderer(this.w, this.h);
         resolve(this);
       });
