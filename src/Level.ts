@@ -8,12 +8,10 @@ const tiles: Frame[] = [
   { x: 10, y: 8, solid: true },
 ];
 
-const solids = [2, 8, 22, 23, 48, 80, 90, 117,118, 123, 81]
+const solids = [2, 8, 22, 23, 48, 80, 90, 117, 118, 123, 81];
 
 export default class Level extends TileMap {
   constructor(w: number, h: number, cellSize: number) {
-    const texture = new Texture(textures.dungeon);
-
     const mapW = Math.ceil(w / cellSize);
     const mapH = Math.ceil(h / cellSize);
     const frames: Frame[] = [];
@@ -27,16 +25,15 @@ export default class Level extends TileMap {
           frames[index] = tiles[1];
         }
 
-        if(solids.includes(index)) {
+        if (solids.includes(index)) {
           frames[index] = tiles[1];
-
         }
 
         // frames[y * mapW + x] = tiles[1];
       }
     }
 
-    super(texture, frames, mapW, mapH, cellSize);
+    super(textures.dungeon, frames, mapW, mapH, cellSize);
     this.w = w;
     this.h = h;
   }
