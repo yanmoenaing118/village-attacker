@@ -11,6 +11,12 @@ export default class Player extends TileSprite {
     super(textures.dungeon, CELL_SIZE, CELL_SIZE, { x: 2, y: 12 });
     this.pos.x = CELL_SIZE * 4;
     this.pos.y = CELL_SIZE * 8;
+    // this.hitBox = {
+    //   x: 2,
+    //   y: 2,
+    //   w: this.w - 2 * 2,
+    //   h: this.h - 2 * 2
+    // }
   }
 
   update(dt: number, t: number): void {
