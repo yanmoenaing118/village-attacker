@@ -1,7 +1,7 @@
 import Container from "./Container";
 import Texture from "./Texture";
 import TileSprite from "./TileSprite";
-import { Frame, Vec2 } from "./interfaces";
+import { Bounds, Frame, Vec2 } from "./interfaces";
 export default class TileMap extends Container<TileSprite> {
   mapW: number;
   mapH: number;
@@ -29,7 +29,6 @@ export default class TileMap extends Container<TileSprite> {
         this.children.push(tile);
       }
     }
-
   }
 
   pixelToMapPosition(pos: Vec2) {
@@ -52,5 +51,14 @@ export default class TileMap extends Container<TileSprite> {
 
   tileAtPixelPosition(pos: Vec2) {
     return this.tileAtMapPosition(this.pixelToMapPosition(pos));
+  }
+
+  getTilesAtCorners(bounds: Bounds) {
+    return [
+      [bounds.x, bounds.y], // TL
+      [bounds.x + bounds.w, bounds.y], // TR
+      [bounds.x, bounds.y + bounds.h], // BL
+      [bounds.x + bounds.w, bounds.y + bounds.h], // BR
+    ].map(([x, y]) => this.tileAtPixelPosition({ x, y }));
   }
 }

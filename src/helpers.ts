@@ -5,8 +5,8 @@ export const bounds = (e: Entity): Bounds => {
   return {
     x: e.pos.x + e.hitBox.x,
     y: e.pos.y + e.hitBox.y,
-    w: e.hitBox.w - 1,
-    h: e.hitBox.h - 1,
+    w: e.hitBox.w - .9,
+    h: e.hitBox.h - .9,
   };
 };
 
