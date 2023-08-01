@@ -8,7 +8,7 @@ const tiles: Frame[] = [
   { x: 10, y: 8, solid: true },
 ];
 
-const solids = [2, 8, 22, 23, 48, 80, 90, 117, 118, 123, 81];
+const solids = new Array(20).fill(0).map( (i, _)=> Math.round(Math.random() * 150));
 
 export default class Level extends TileMap {
   constructor(w: number, h: number, cellSize: number) {
