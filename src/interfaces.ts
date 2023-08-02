@@ -15,3 +15,8 @@ export interface Bounds {
     w: number,
     h: number
 }
+
+export interface Styles {
+    fill: string,
+    stroke: string,
+}

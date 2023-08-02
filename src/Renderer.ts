@@ -1,6 +1,7 @@
 import Container from "./Container";
 import DebugGrid from "./DebugGrid";
 import Entity from "./Entity";
+import Rect from "./Rect";
 import Sprite from "./Sprite";
 import TileSprite from "./TileSprite";
 
@@ -13,11 +14,9 @@ export default class Renderer {
   constructor(width: number, height: number) {
     const canvas = document.createElement("canvas");
     document.body.appendChild(canvas);
-   
-   
+
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-   
-   
+
     canvas.width = width;
     canvas.height = height;
 
@@ -35,7 +34,6 @@ export default class Renderer {
     this.ctx.scale(dpr, dpr);
     this.canvas.style.width = `${rect.width}px`;
     this.canvas.style.height = `${rect.height}px`;
-
   }
 
   render(container: Container<Entity>) {
@@ -66,12 +64,24 @@ export default class Renderer {
         ctx.drawImage(child.texture.img, 0, 0, w, h);
       } else if (child instanceof DebugGrid) {
         this.renderDebugGrid(child);
+      } else if (child instanceof Rect) {
+        ctx.fillStyle = child.styles.fill || "black";
+        ctx.fillRect(0, 0, child.w, child.h);
+        if (child.styles.stroke) {
+          ctx.strokeStyle = child.styles.stroke;
+          ctx.strokeRect(0, 0, child.w, child.h);
+        }
       }
 
-      if(child.debug) {
+      if (child.debug) {
         ctx.save();
-        ctx.fillStyle = 'rgba(0,0,0,0.3)'
-        ctx.fillRect(child.hitBox.x, child.hitBox.y, child.hitBox.w, child.hitBox.h);
+        ctx.fillStyle = "rgba(0,0,0,0.3)";
+        ctx.fillRect(
+          child.hitBox.x,
+          child.hitBox.y,
+          child.hitBox.w,
+          child.hitBox.h
+        );
         ctx.restore();
       }
 

@@ -10,6 +10,7 @@ import { clamp } from "./math";
 import dungeonImage from "./assets/dungeon.png";
 import { CELL_SIZE, HEIGHT, WIDTH } from "./constants";
 import Player from "./Player";
+import Rect from "./Rect";
 const cellSize = CELL_SIZE;
 let w = WIDTH;
 let h = HEIGHT;
@@ -35,6 +36,9 @@ game.load().then(() => {
 
   // container.add(new DebugGrid(w, h, cellSize));
   container.add(player);
+  container.add(new Rect(64, 64, {
+    fill: 'rgba(225,225,225,0.3)'
+  }))
 
   game.run(update);
 });
