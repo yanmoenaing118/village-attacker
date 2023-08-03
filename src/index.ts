@@ -47,7 +47,7 @@ game.load().then(() => {
   container.add(level);
 
   container.add(player);
-  container.add(rect);
+  // container.add(rect);
 
   game.run(update);
 });

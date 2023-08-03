@@ -9,7 +9,7 @@ import { textures } from "./textures";
 export default class Player extends TileSprite {
   speed = 840;
   constructor(private controls: KeyboardControls, private map: Level) {
-    super(textures.spider, CELL_SIZE, CELL_SIZE, { x: 1, y: 2 });
+    super(textures.village, CELL_SIZE, CELL_SIZE, { x: 12, y: 8});
     this.pos.x = CELL_SIZE * 4;
     this.pos.y = CELL_SIZE * 8;
     // this.hitBox = {
