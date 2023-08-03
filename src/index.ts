@@ -29,16 +29,22 @@ const player = new Player(controls, level);
 function update(dt: number, t: number) {}
 
 game.load().then(() => {
+  const rect = new Rect(64, 64, {
+    fill: 'rgba(225,225,225,0.3)'
+  });
   // w = game.w;
   // h = game.h;
+
+  rect.styles.fill = 'pink';
+  rect.pos.x = CELL_SIZE * 4;
+  rect.pos.y = CELL_SIZE * 4;
 
   container.add(level);
 
   // container.add(new DebugGrid(w, h, cellSize));
+
   container.add(player);
-  container.add(new Rect(64, 64, {
-    fill: 'rgba(225,225,225,0.3)'
-  }))
+  container.add(rect)
 
   game.run(update);
 });
