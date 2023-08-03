@@ -5,7 +5,7 @@ import { textures } from "./textures";
 
 const tiles: Frame[] = [
   { x: 1, y: 11, solid: false }, // walkable dark path
-  { x: 10, y: 8, solid: true },
+  { x: 10, y: 7, solid: true },
 ];
 
 const solids = new Array(20).fill(0).map( (i, _)=> Math.round(Math.random() * 150));
