@@ -44,7 +44,7 @@ game.load().then(() => {
 
   container.add(new DebugGrid(w, h, cellSize));
 
-  // container.add(level);
+  container.add(level);
 
   container.add(player);
   container.add(rect);

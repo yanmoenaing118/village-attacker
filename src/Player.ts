@@ -56,7 +56,7 @@ export default class Player extends TileSprite {
     this.pos.x += mx;
     this.pos.y += my;
 
-    this.pos.x = clamp(this.pos.x, 0, WIDTH - CELL_SIZE);
-    this.pos.y = clamp(this.pos.y, 0, HEIGHT - CELL_SIZE);
+    this.pos.x = clamp(this.pos.x, 0, this.map.w - CELL_SIZE);
+    this.pos.y = clamp(this.pos.y, 0, this.map.h - CELL_SIZE);
   }
 }
