@@ -12,19 +12,27 @@ export default class Player extends TileSprite {
     super(textures.soldier, 128, 128, { x: 0, y: 2 });
     this.pos.x = CELL_SIZE * 4;
     this.pos.y = CELL_SIZE * 8;
-    // this.hitBox = {
-    //   x: 3,
-    //   y: 6,
-    //   w: this.w - 2 * 3,
-    //   h: this.h - 2 * 6
-    // }
+
     this.debug = true;
+    // this.w = 32;
+    // this.h = 32;
+    this.scale = {
+      x: 32 / 128,
+      y: 32 / 128,
+    };
+
+    this.hitBox = {
+      x: 0,
+      y: 0,
+      w: this.w * this.scale.x,
+      h: this.h * this.scale.y,
+    };
   }
 
   update(dt: number, t: number): void {
     if (this.controls.x) {
       const frameIndex =
-        Math.floor(t / 0.15) % 12 ? Math.floor(t / 0.07) % 12 : 1;
+        Math.floor(t / 0.15) % 12 ? Math.floor(t / 0.09) % 12 : 1;
       this.frame.x = frameIndex;
     }
 

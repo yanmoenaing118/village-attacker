@@ -41,10 +41,11 @@ export default class Renderer {
     ctx.clearRect(0, 0, this.w, this.h);
 
     container.children.forEach((child) => {
-      const { pos, w, h } = child;
+      const { pos, scale, w, h } = child;
       ctx.save();
 
       ctx.translate(pos.x, pos.y);
+      ctx.scale(scale.x, scale.y);
 
       if (child instanceof TileSprite) {
         const { frame } = child;
