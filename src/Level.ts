@@ -4,8 +4,8 @@ import { Frame } from "./interfaces";
 import { textures } from "./textures";
 
 const tiles: Frame[] = [
-  { x: 1, y: 10, solid: false }, // walkable dark path
-  { x: 10, y: 7, solid: true },
+  { x: 1, y: 2, solid: false }, // walkable dark path
+  { x: 10, y: 18, solid: true },
 ];
 
 export default class Level extends TileMap {

@@ -9,7 +9,7 @@ import { textures } from "./textures";
 export default class Player extends TileSprite {
   speed = 840;
   constructor(private controls: KeyboardControls, private map: Level) {
-    super(textures.village, CELL_SIZE, CELL_SIZE, { x: 12, y: 8});
+    super(textures.soldier, 128, 128, { x: 0, y: 2 });
     this.pos.x = CELL_SIZE * 4;
     this.pos.y = CELL_SIZE * 8;
     // this.hitBox = {
@@ -22,6 +22,12 @@ export default class Player extends TileSprite {
   }
 
   update(dt: number, t: number): void {
+    if (this.controls.x) {
+      const frameIndex =
+        Math.floor(t / 0.15) % 12 ? Math.floor(t / 0.07) % 12 : 1;
+      this.frame.x = frameIndex;
+    }
+
     let mx = this.controls.x * this.speed * dt;
     let my = this.controls.y * this.speed * dt;
 
