@@ -35,7 +35,7 @@ export default class Level extends TileMap {
           continue;
         }
 
-        if (y % 2 || x % 2 || randOneIn(4)) {
+        if (y % 2 || x % 2 || randOneIn(mapW)) {
           continue;
         }
 
