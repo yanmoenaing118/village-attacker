@@ -1,3 +1,4 @@
+import { js as EasyStar} from "easystarjs";
 import Texture from "./Texture";
 import TileMap from "./TileMap";
 import { randOneFrom, randOneIn } from "./helpers";
@@ -9,7 +10,10 @@ const tiles: Frame[] = [
   { x: 13, y: 9, solid: true },
 ];
 
+const easystar = new EasyStar();
+
 export default class Level extends TileMap {
+  path: EasyStar
   constructor(w: number, h: number, cellSize: number) {
     const mapW = Math.ceil(w / cellSize);
     const mapH = Math.ceil(h / cellSize);
@@ -51,6 +55,20 @@ export default class Level extends TileMap {
     super(textures.village, frames, mapW, mapH, cellSize);
     this.w = w;
     this.h = h;
+
+    let grid =  [];
+
+    for(let i = 0 ; i < mapW * mapH; i += mapW) {
+      const cells = frames.slice(i, i+mapW).map(  f => {
+        if(f.solid) return 1;
+        return 0;
+      })
+      grid.push(cells);
+    }
+
+    easystar.setGrid(grid);
+    easystar.setAcceptableTiles([0]);
+    this.path = easystar;
   }
 }
 

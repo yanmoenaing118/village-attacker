@@ -21,6 +21,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "easystarjs": "^0.4.4",
     "html-webpack-plugin": "^5.5.3"
   }
 }
