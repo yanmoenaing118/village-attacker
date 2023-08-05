@@ -9,6 +9,6 @@ let h = HEIGHT;
 const game = new Game(w, h);
 
 game.load().then(() => {
-  game.scene = new PlayScreen(game.w, game.h);
+  game.scene = new PlayScreen(w, h);
   game.run();
 });

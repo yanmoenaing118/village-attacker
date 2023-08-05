@@ -7,7 +7,7 @@ import { clamp } from "./math";
 import { textures } from "./textures";
 
 export default class Player extends TileSprite {
-  speed = 640;
+  speed = 320;
   constructor(private controls: KeyboardControls, private map: Level) {
     super(textures.village, CELL_SIZE * 0.7, CELL_SIZE * 0.7, { x: 12, y: 0 });
     this.pos.x = CELL_SIZE * 1;
