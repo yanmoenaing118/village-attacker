@@ -28,7 +28,7 @@ export default class Level extends TileMap {
         const index = y * mapW + x;
         frames[index] = tiles[0];
 
-        if(x == 1 && y > 1 ) continue;
+        if(x == 2 && y > 1 ) continue;
 
         if ( x == 0 || y == 0 || x == mapW - 1 || y == mapH - 1) {
           frames[index] = tiles[1];
@@ -47,6 +47,7 @@ export default class Level extends TileMap {
           [1, 0],
           [-1, 0],
         ]);
+      
         frames[(y + yo) * mapW + (x + xo)] = tiles[1];
        
       }
