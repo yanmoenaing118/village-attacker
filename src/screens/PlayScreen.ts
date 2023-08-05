@@ -25,13 +25,13 @@ export default class PlayScreen extends Container<Entity> {
     // this.add(target);
     // this.add(ghost);
 
-    const speed = 110;
+    const speed = 320;
     const player = new Rect(CELL_SIZE, CELL_SIZE, {
       fill: "rgba(0,0,0,0.3)",
     });
 
     const target = new Rect(CELL_SIZE, CELL_SIZE, {
-      fill: "green",
+      fill: "rgba(0,225,0,0.3)",
     });
 
     const waypoints: Vec2[] = [
@@ -56,6 +56,7 @@ export default class PlayScreen extends Container<Entity> {
       let isXClose = Math.abs(dx) <= step;
       let isYClose = Math.abs(dy) <= step;
 
+
       if (isXClose && isYClose) {
         if (waypoints.length > 0) {
           waypoint = waypoints.shift();
@@ -76,6 +77,7 @@ export default class PlayScreen extends Container<Entity> {
 
       // player.pos.x += step;
       player.pos.x = clamp(player.pos.x, 0, w - CELL_SIZE);
+      player.pos.y = clamp(player.pos.y, 0, h - CELL_SIZE)
     };
 
     const debugGrid = new DebugGrid(w, h, CELL_SIZE);
