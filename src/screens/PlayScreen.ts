@@ -15,69 +15,54 @@ const easystar = new EasyStar();
 
 export default class PlayScreen extends Container<Entity> {
   static constrols: KeyboardControls = new KeyboardControls();
+  waypoints: Vec2[] = [];
+  waypoint: Vec2;
+  player: Rect;
+  target: Rect;
   constructor(w: number, h: number) {
     super();
-    // const level = new Level(w, h, CELL_SIZE);
-    // const player = new Player(PlayScreen.constrols, level);
-    // target.pos.x = CELL_SIZE * 4;
-    // target.pos.y = CELL_SIZE * 8;
-    // const ghost = new Ghost(level, target);
-
-    // this.add(level);
-    // this.add(player);
-    // this.add(target);
-    // this.add(ghost);
     const debugGrid = new DebugGrid(w, h, CELL_SIZE);
 
     const speed = 320;
     const player = new Rect(CELL_SIZE, CELL_SIZE, {
       fill: "rgba(0,0,0,0.3)",
     });
+    this.player = player;
 
     const target = new Rect(CELL_SIZE, CELL_SIZE, {
       fill: "rgba(0,225,0,0.3)",
     });
+    this.target = target;
 
-    let waypoints: Vec2[] = [
-      { x: CELL_SIZE * 0, y: CELL_SIZE * 0 },
-      { x: CELL_SIZE * 1, y: CELL_SIZE * 0 },
-      { x: CELL_SIZE * 2, y: CELL_SIZE * 0 },
-      { x: CELL_SIZE * 3, y: CELL_SIZE * 0 },
-      { x: CELL_SIZE * 3, y: CELL_SIZE * 1 },
-      { x: CELL_SIZE * 3, y: CELL_SIZE * 2 },
-    ];
-    let waypoint = waypoints.shift();
+    let waypoint = this.waypoint;
 
     target.pos.x = Math.floor(Math.random() * debugGrid.cols) * CELL_SIZE;
     target.pos.y = Math.floor(Math.random() * debugGrid.rows) * CELL_SIZE;
 
+
     player.update = (dt: number, t: number) => {
-      const dx = waypoint.x - player.pos.x;
-      const dy = waypoint.y - player.pos.y;
+      if(!this.waypoint) this.waypoint = {...player.pos} ;
+      const dx = this.waypoint.x - player.pos.x;
+      const dy = this.waypoint.y - player.pos.y;
       let step = dt * speed;
 
       let isXClose = Math.abs(dx) <= step;
       let isYClose = Math.abs(dy) <= step;
 
       if (isXClose && isYClose) {
-        if (waypoints.length > 0) {
-          waypoint = waypoints.shift();
+        if (this.waypoints.length > 0) {
+          this.waypoint = this.waypoints.shift();
+        }
+        if(this.waypoints.length == 0) {
+          target.pos.x = Math.floor(Math.random() * debugGrid.cols) * CELL_SIZE;
+          target.pos.y = Math.floor(Math.random() * debugGrid.rows) * CELL_SIZE;
+          this.findPath();
         }
       }
 
-      if (isXClose) {
-        // console.log("X is close");
-      } else {
-        player.pos.x += step * (dx > 0 ? 1 : -1);
-      }
+      if (!isXClose) player.pos.x += step * (dx > 0 ? 1 : -1);
+      if (!isYClose) player.pos.y += step * (dy > 0 ? 1 : -1);
 
-      if (isYClose) {
-        // console.log("Y is close");
-      } else {
-        player.pos.y += step * (dy > 0 ? 1 : -1);
-      }
-
-      // player.pos.x += step;
       player.pos.x = clamp(player.pos.x, 0, w - CELL_SIZE);
       player.pos.y = clamp(player.pos.y, 0, h - CELL_SIZE);
     };
@@ -94,25 +79,10 @@ export default class PlayScreen extends Container<Entity> {
     easystar.setGrid(grid);
     easystar.setAcceptableTiles([0]);
 
+    this.findPath();
+
     try {
-      easystar.findPath(
-        Math.floor(player.pos.x / CELL_SIZE),
-        Math.floor(player.pos.y / CELL_SIZE),
-        Math.floor(target.pos.x / CELL_SIZE),
-        Math.floor(target.pos.y / CELL_SIZE),
-        (p) => {
-          console.log("the path ", p);
-          if (p) {
-            waypoints = p.map(({ x, y }) => ({
-              x: x * CELL_SIZE,
-              y: y * CELL_SIZE,
-            }));
-            waypoint = waypoints.shift();
-          }
-        }
-      );
-  
-      easystar.calculate();
+      
     } catch (error) {
       console.log(error);
     }
@@ -120,5 +90,26 @@ export default class PlayScreen extends Container<Entity> {
     this.add(debugGrid);
     this.add(player);
     this.add(target);
+  }
+
+  findPath() {
+    easystar.findPath(
+      Math.floor(this.player.pos.x / CELL_SIZE),
+      Math.floor(this.player.pos.y / CELL_SIZE),
+      Math.floor(this.target.pos.x / CELL_SIZE),
+      Math.floor(this.target.pos.y / CELL_SIZE),
+      (p) => {
+        console.log("the path ", p);
+        if (p) {
+          this.waypoints = p.map(({ x, y }) => ({
+            x: x * CELL_SIZE,
+            y: y * CELL_SIZE,
+          }));
+          this.waypoint = this.waypoints.shift();
+        }
+      }
+    );
+
+    easystar.calculate();
   }
 }
