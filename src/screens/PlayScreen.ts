@@ -27,6 +27,7 @@ export default class PlayScreen extends Container<Entity> {
     // this.add(player);
     // this.add(target);
     // this.add(ghost);
+    const debugGrid = new DebugGrid(w, h, CELL_SIZE);
 
     const speed = 320;
     const player = new Rect(CELL_SIZE, CELL_SIZE, {
@@ -47,8 +48,8 @@ export default class PlayScreen extends Container<Entity> {
     ];
     let waypoint = waypoints.shift();
 
-    target.pos.x = w / 2 - CELL_SIZE;
-    target.pos.y = h  - CELL_SIZE;
+    target.pos.x = Math.floor(Math.random() * debugGrid.cols) * CELL_SIZE;
+    target.pos.y = Math.floor(Math.random() * debugGrid.rows) * CELL_SIZE;
 
     player.update = (dt: number, t: number) => {
       const dx = waypoint.x - player.pos.x;
@@ -81,7 +82,6 @@ export default class PlayScreen extends Container<Entity> {
       player.pos.y = clamp(player.pos.y, 0, h - CELL_SIZE);
     };
 
-    const debugGrid = new DebugGrid(w, h, CELL_SIZE);
     const grid: number[][] = [];
 
     for (let y = 0; y < debugGrid.rows; y++) {
@@ -94,24 +94,28 @@ export default class PlayScreen extends Container<Entity> {
     easystar.setGrid(grid);
     easystar.setAcceptableTiles([0]);
 
-    easystar.findPath(
-      Math.floor(player.pos.x / CELL_SIZE),
-      Math.floor(player.pos.y / CELL_SIZE),
-      Math.floor(target.pos.x / CELL_SIZE),
-      Math.floor(target.pos.y / CELL_SIZE),
-      (p) => {
-        console.log("the path ", p);
-        if (p) {
-          waypoints = p.map(({ x, y }) => ({
-            x: x * CELL_SIZE,
-            y: y * CELL_SIZE,
-          }));
-          waypoint = waypoints.shift();
+    try {
+      easystar.findPath(
+        Math.floor(player.pos.x / CELL_SIZE),
+        Math.floor(player.pos.y / CELL_SIZE),
+        Math.floor(target.pos.x / CELL_SIZE),
+        Math.floor(target.pos.y / CELL_SIZE),
+        (p) => {
+          console.log("the path ", p);
+          if (p) {
+            waypoints = p.map(({ x, y }) => ({
+              x: x * CELL_SIZE,
+              y: y * CELL_SIZE,
+            }));
+            waypoint = waypoints.shift();
+          }
         }
-      }
-    );
-
-    easystar.calculate();
+      );
+  
+      easystar.calculate();
+    } catch (error) {
+      console.log(error);
+    }
 
     this.add(debugGrid);
     this.add(player);
