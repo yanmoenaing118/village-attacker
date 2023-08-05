@@ -13,15 +13,14 @@ const tiles: Frame[] = [
 const easystar = new EasyStar();
 
 export default class Level extends TileMap {
-  path: EasyStar
+
+  frames: Frame[];
+
   constructor(w: number, h: number, cellSize: number) {
     const mapW = Math.ceil(w / cellSize);
     const mapH = Math.ceil(h / cellSize);
     const frames: Frame[] = [];
 
-    const solids = new Array(20)
-      .fill(0)
-      .map((i, _) => Math.round(Math.random() * (mapH * mapW)));
 
     for (let y = 0; y < mapH; y++) {
       for (let x = 0; x < mapW; x++) {
@@ -53,23 +52,13 @@ export default class Level extends TileMap {
       }
     }
 
+    
     super(textures.village, frames, mapW, mapH, cellSize);
     this.w = w;
     this.h = h;
+    this.frames = frames;
 
-    let grid =  [];
-
-    for(let i = 0 ; i < mapW * mapH; i += mapW) {
-      const cells = frames.slice(i, i+mapW).map(  f => {
-        if(f.solid) return 1;
-        return 0;
-      })
-      grid.push(cells);
-    }
-
-    easystar.setGrid(grid);
-    easystar.setAcceptableTiles([0]);
-    this.path = easystar;
+    
   }
 }
 

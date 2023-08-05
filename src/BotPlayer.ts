@@ -1,9 +1,12 @@
+import { js } from "easystarjs";
 import Level from "./Level";
 import Player from "./Player";
 import Rect from "./Rect";
 import { CELL_SIZE } from "./constants";
 import { Vec2 } from "./interfaces";
 import { clamp } from "./math";
+
+const easystar = new js();
 
 export default class BotPlayer extends Rect {
   waypoints: Vec2[];
@@ -15,6 +18,20 @@ export default class BotPlayer extends Rect {
     });
     this.pos.x = CELL_SIZE;
     this.pos.y = CELL_SIZE;
+
+    let grid = [];
+
+    for (let i = 0; i < this.map.mapW * this.map.mapH; i += this.map.mapW) {
+      const cells = this.map.frames.slice(i, i + this.map.mapW).map((f) => {
+        if (f.solid) return 1;
+        return 0;
+      });
+      grid.push(cells);
+    }
+
+    easystar.setGrid(grid);
+    easystar.setAcceptableTiles([0]);
+
   }
 
   update(dt: number, t: number): void {
