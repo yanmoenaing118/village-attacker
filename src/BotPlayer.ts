@@ -32,6 +32,7 @@ export default class BotPlayer extends Rect {
     easystar.setGrid(grid);
     easystar.setAcceptableTiles([0]);
 
+    this.findPath();
   }
 
   update(dt: number, t: number): void {
@@ -39,5 +40,14 @@ export default class BotPlayer extends Rect {
 
     this.pos.x = clamp(this.pos.x, 0, this.map.w - this.w);
     this.pos.y = clamp(this.pos.y, 0, this.map.h - this.h);
+  }
+
+  findPath() {
+    const bot = this.map.pixelToMapPosition(this.pos);
+    const target = this.map.pixelToMapPosition(this.target.pos);
+    easystar.findPath(bot.x, bot.y, target.x, target.y, (path) => {
+      this.waypoints = path;
+    });
+    easystar.calculate();
   }
 }
