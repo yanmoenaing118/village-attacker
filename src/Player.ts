@@ -9,7 +9,7 @@ import { textures } from "./textures";
 export default class Player extends TileSprite {
   speed = 320;
   constructor(private controls: KeyboardControls, private map: Level) {
-    super(textures.village, CELL_SIZE * 0.7, CELL_SIZE * 0.7, { x: 12, y: 0 });
+    super(textures.village, CELL_SIZE , CELL_SIZE , { x: 12, y: 0 });
     this.pos.x = CELL_SIZE * 1;
     this.pos.y = CELL_SIZE * 1;
 
@@ -51,7 +51,6 @@ export default class Player extends TileSprite {
         my = tilesAtCorners[0].pos.y + tilesAtCorners[0].h - this.pos.y;
       } else if (this.controls.y > 0 && (BL || BR)) {
         my = tilesAtCorners[2].pos.y - (this.pos.y + this.h);
-        // debugger
       }
     }
 
