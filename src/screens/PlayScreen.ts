@@ -48,7 +48,7 @@ export default class PlayScreen extends Container<Entity> {
     let waypoint = waypoints.shift();
 
     target.pos.x = w / 2 - CELL_SIZE;
-    target.pos.y = h / 2 - CELL_SIZE;
+    target.pos.y = h  - CELL_SIZE;
 
     player.update = (dt: number, t: number) => {
       const dx = waypoint.x - player.pos.x;
@@ -67,13 +67,13 @@ export default class PlayScreen extends Container<Entity> {
       if (isXClose) {
         // console.log("X is close");
       } else {
-        // player.pos.x += step * (dx > 0 ? 1 : -1);
+        player.pos.x += step * (dx > 0 ? 1 : -1);
       }
 
       if (isYClose) {
         // console.log("Y is close");
       } else {
-        // player.pos.y += step * (dy > 0 ? 1 : -1);
+        player.pos.y += step * (dy > 0 ? 1 : -1);
       }
 
       // player.pos.x += step;
@@ -100,10 +100,13 @@ export default class PlayScreen extends Container<Entity> {
       Math.floor(target.pos.x / CELL_SIZE),
       Math.floor(target.pos.y / CELL_SIZE),
       (p) => {
-        console.log('the path ', p);
-        if(p) {
-
-          
+        console.log("the path ", p);
+        if (p) {
+          waypoints = p.map(({ x, y }) => ({
+            x: x * CELL_SIZE,
+            y: y * CELL_SIZE,
+          }));
+          waypoint = waypoints.shift();
         }
       }
     );
