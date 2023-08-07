@@ -34,7 +34,6 @@ export default class Player extends TileSprite {
       pos: { x: this.pos.x + mx, y: this.pos.y + my },
     });
     const tilesAtCorners = this.map.getTilesAtCorners(b);
-    const blocked = tilesAtCorners.some((tile) => tile && tile.frame.solid);
     const [TL, TR, BL, BR] = tilesAtCorners.map(
       (tile) => tile && tile.frame.solid
     );
