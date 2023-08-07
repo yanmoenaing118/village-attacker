@@ -39,20 +39,24 @@ export default class Player extends TileSprite {
       (tile) => tile && tile.frame.solid
     );
 
-    if (blocked) {
-      mx = 0;
-      my = 0;
-
-      if (this.controls.x < 0 && (TL || BL)) {
-        mx = tilesAtCorners[0].pos.x + tilesAtCorners[0].w - this.pos.x;
-      } else if (this.controls.x > 0 && (TR || BR)) {
-        mx = tilesAtCorners[1].pos.x - (this.pos.x + this.w);
-      } else if (this.controls.y < 0 && (TL || TR)) {
+    if(this.controls.y) {
+      if (this.controls.y < 0 && (TL || TR)) {
         my = tilesAtCorners[0].pos.y + tilesAtCorners[0].h - this.pos.y;
       } else if (this.controls.y > 0 && (BL || BR)) {
         my = tilesAtCorners[2].pos.y - (this.pos.y + this.h);
       }
     }
+
+    if(this.controls.x) {
+      if (this.controls.x < 0 && (TL || BL)) {
+        mx = tilesAtCorners[0].pos.x + tilesAtCorners[0].w - this.pos.x;
+      } else if (this.controls.x > 0 && (TR || BR)) {
+        mx = tilesAtCorners[1].pos.x - (this.pos.x + this.w);
+      }
+    }
+
+    
+
 
     this.pos.x += mx;
     this.pos.y += my;
