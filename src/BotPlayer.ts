@@ -5,6 +5,7 @@ import Rect from "./Rect";
 import { CELL_SIZE } from "./constants";
 import { Vec2 } from "./interfaces";
 import { clamp } from "./math";
+import { hit } from "./helpers";
 
 const easystar = new js();
 
@@ -52,8 +53,6 @@ export default class BotPlayer extends Rect {
       if (this.waypoints.length > 0) {
         this.waypoint = this.map.mapToPixelPosition(this.waypoints[0]);
       }
-      console.log(JSON.stringify(this.waypoint));
-      console.log(JSON.stringify(this.waypoints));
     });
     easystar.calculate();
   }
@@ -75,12 +74,7 @@ export default class BotPlayer extends Rect {
     if (!isYClose) this.pos.y += step * (dy > 0 ? 1 : -1);
 
     if (isXClose && isYClose) {
-      if (
-        this.waypoint.x == this.target.pos.x &&
-        this.waypoint.y == this.target.pos.y
-      ) {
-        return;
-      }
+      
       if (this.waypoints.length == 0) {
         this.findPath();
       } else {

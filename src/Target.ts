@@ -7,6 +7,6 @@ export default class Target extends Rect {
       fill: "rgba(255,0,0,0.5)",
     });
     this.pos.x = WIDTH - w * 2;
-    this.pos.y = h * 2;
+    this.pos.y = HEIGHT * 0.5;
   }
 }
