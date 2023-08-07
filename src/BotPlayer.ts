@@ -9,7 +9,7 @@ import { clamp } from "./math";
 const easystar = new js();
 
 export default class BotPlayer extends Rect {
-  waypoints: Vec2[];
+  waypoints: Vec2[] = [];
   waypoint: Vec2;
   speed = 320;
 
@@ -33,12 +33,13 @@ export default class BotPlayer extends Rect {
     easystar.setGrid(grid);
     easystar.setAcceptableTiles([0]);
 
-    this.findPath();
   }
 
   update(dt: number, t: number): void {
-    if (!this.waypoint) this.waypoint = { ...this.pos };
-
+    if (!this.waypoint) {
+      this.findPath();
+    };
+    this.moveAlongPath(dt);
     this.pos.x = clamp(this.pos.x, 0, this.map.w - this.w);
     this.pos.y = clamp(this.pos.y, 0, this.map.h - this.h);
   }
@@ -48,27 +49,37 @@ export default class BotPlayer extends Rect {
     const target = this.map.pixelToMapPosition(this.target.pos);
     easystar.findPath(bot.x, bot.y, target.x, target.y, (path) => {
       this.waypoints = path || [];
+      if(this.waypoints.length > 0 ) {
+        this.waypoint = this.waypoints[0];
+      }
+      console.log(JSON.stringify(this.waypoint))
+      console.log(JSON.stringify(this.waypoints))
     });
     easystar.calculate();
   }
 
   moveAlongPath(dt: number) {
-    if(this.waypoints.length < 1) return;
-    this.waypoint = this.waypoints.shift();
     const pos = this.pos;
 
     const dx = this.waypoint.x - pos.x;
     const dy = this.waypoint.y - pos.y;
 
-    const step = this.speed * dt;
+    let step = this.speed * dt;
     let isXClose = false;
-    let isYClose = true;
+    let isYClose = false;
 
-    if(Math.abs(dx) <= step) isXClose = true;
-    if(Math.abs(dy) <= step) isYClose = true;
-    
-    if(isXClose && isYClose) {
+    if (Math.abs(dx) <= step) isXClose = true;
+    if (Math.abs(dy) <= step) isYClose = true;
 
+    if (!isXClose) this.pos.x += step * (dx > 0 ? 1 : -1);
+    if (!isYClose) this.pos.y += step * (dy > 0 ? 1 : -1);
+
+    if (isXClose && isYClose) {
+      if(this.waypoints.length == 0) {
+        this.findPath();
+      } else {
+        this.waypoint = this.waypoints.shift();
+      }
     }
   }
 }
