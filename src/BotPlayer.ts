@@ -32,13 +32,13 @@ export default class BotPlayer extends Rect {
 
     easystar.setGrid(grid);
     easystar.setAcceptableTiles([0]);
-
+    this.findPath();
   }
 
   update(dt: number, t: number): void {
     if (!this.waypoint) {
-      this.findPath();
-    };
+      this.waypoint = { ...this.pos };
+    }
     this.moveAlongPath(dt);
     this.pos.x = clamp(this.pos.x, 0, this.map.w - this.w);
     this.pos.y = clamp(this.pos.y, 0, this.map.h - this.h);
@@ -49,11 +49,11 @@ export default class BotPlayer extends Rect {
     const target = this.map.pixelToMapPosition(this.target.pos);
     easystar.findPath(bot.x, bot.y, target.x, target.y, (path) => {
       this.waypoints = path || [];
-      if(this.waypoints.length > 0 ) {
-        this.waypoint = this.waypoints[0];
+      if (this.waypoints.length > 0) {
+        this.waypoint = this.map.mapToPixelPosition(this.waypoints[0]);
       }
-      console.log(JSON.stringify(this.waypoint))
-      console.log(JSON.stringify(this.waypoints))
+      console.log(JSON.stringify(this.waypoint));
+      console.log(JSON.stringify(this.waypoints));
     });
     easystar.calculate();
   }
@@ -75,10 +75,16 @@ export default class BotPlayer extends Rect {
     if (!isYClose) this.pos.y += step * (dy > 0 ? 1 : -1);
 
     if (isXClose && isYClose) {
-      if(this.waypoints.length == 0) {
+      if (
+        this.waypoint.x == this.target.pos.x &&
+        this.waypoint.y == this.target.pos.y
+      ) {
+        return;
+      }
+      if (this.waypoints.length == 0) {
         this.findPath();
       } else {
-        this.waypoint = this.waypoints.shift();
+        this.waypoint = this.map.mapToPixelPosition(this.waypoints.shift());
       }
     }
   }
