@@ -11,6 +11,7 @@ const easystar = new js();
 export default class BotPlayer extends Rect {
   waypoints: Vec2[];
   waypoint: Vec2;
+  speed = 320;
 
   constructor(public map: Level, public target: Rect) {
     super(CELL_SIZE, CELL_SIZE, {
@@ -46,8 +47,28 @@ export default class BotPlayer extends Rect {
     const bot = this.map.pixelToMapPosition(this.pos);
     const target = this.map.pixelToMapPosition(this.target.pos);
     easystar.findPath(bot.x, bot.y, target.x, target.y, (path) => {
-      this.waypoints = path;
+      this.waypoints = path || [];
     });
     easystar.calculate();
+  }
+
+  moveAlongPath(dt: number) {
+    if(this.waypoints.length < 1) return;
+    this.waypoint = this.waypoints.shift();
+    const pos = this.pos;
+
+    const dx = this.waypoint.x - pos.x;
+    const dy = this.waypoint.y - pos.y;
+
+    const step = this.speed * dt;
+    let isXClose = false;
+    let isYClose = true;
+
+    if(Math.abs(dx) <= step) isXClose = true;
+    if(Math.abs(dy) <= step) isYClose = true;
+    
+    if(isXClose && isYClose) {
+
+    }
   }
 }
