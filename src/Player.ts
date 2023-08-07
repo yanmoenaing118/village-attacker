@@ -14,14 +14,6 @@ export default class Player extends TileSprite {
     this.pos.y = CELL_SIZE * 1;
 
     this.debug = true;
-
-
-    // this.hitBox = {
-    //   x: 3,
-    //   y: 3,
-    //   w: this.w - 3 * 2,
-    //   h: this.h - 3 * 2,
-    // };
   }
 
   update(dt: number, t: number): void {
