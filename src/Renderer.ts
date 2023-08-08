@@ -3,6 +3,7 @@ import DebugGrid from "./DebugGrid";
 import Entity from "./Entity";
 import Rect from "./Rect";
 import Sprite from "./Sprite";
+import Text from "./Text";
 import TileSprite from "./TileSprite";
 
 export default class Renderer {
@@ -72,6 +73,11 @@ export default class Renderer {
           ctx.strokeStyle = child.styles.stroke;
           ctx.strokeRect(0, 0, child.w, child.h);
         }
+      } else if(child instanceof Text) {
+        ctx.fillStyle = child.style.fill;
+        ctx.strokeStyle  = child.style.stroke;
+        ctx.font = child.style.font;
+        ctx.fillText(child.text, 0, 0);
       }
 
       if (child.debug) {

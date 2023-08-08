@@ -19,4 +19,5 @@ export interface Bounds {
 export interface Styles {
     fill: string,
     stroke: string,
+    font?: string
 }
