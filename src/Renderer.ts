@@ -40,6 +40,8 @@ export default class Renderer {
   render(container: Container<Entity>) {
     const { ctx } = this;
 
+    console.log(container);
+
     const renderRect = (container: Container<Entity>) => {
       container.children.forEach((child) => {
         
