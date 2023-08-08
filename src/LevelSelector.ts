@@ -1,5 +1,7 @@
 import Container from "./Container";
 import Entity from "./Entity";
+import LevelItem from "./LevelItem";
+import { textures } from "./textures";
 
 export default class LevelSelector extends Container<Entity> {
   gap = 20;
@@ -7,5 +9,6 @@ export default class LevelSelector extends Container<Entity> {
     super();
     this.w = 320;
     this.h = 320;
+    this.children = [new LevelItem(textures.player1Lg, 32, 32)];
   }
 }

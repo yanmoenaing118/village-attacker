@@ -1,5 +1,6 @@
 import Container from "../Container";
 import Entity from "../Entity";
+import LevelSelector from "../LevelSelector";
 import Rect from "../Rect";
 import Text from "../Text";
 
@@ -18,7 +19,9 @@ export default class StartScreen extends Container<Entity> {
     this.startText.pos.x = w / 2 - (w / 2) * 0.6;
     this.startText.pos.y = h / 2;
 
+    
     this.add(this.bgRect);
     this.add(this.startText);
+    this.add(new LevelSelector())
   }
 }
