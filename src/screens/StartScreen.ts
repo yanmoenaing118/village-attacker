@@ -12,10 +12,10 @@ export default class StartScreen extends Container<Entity> {
     this.startText = new Text("Race between Robot and The Human", {
       fill: "white",
       stroke: "transparent",
-      font: "42px monospace",
+      font: "52px monospace",
     });
 
-    this.startText.pos.x = w / 2 - (w / 2) * 0.5;
+    this.startText.pos.x = w / 2 - (w / 2) * 0.6;
     this.startText.pos.y = h / 2;
 
     this.add(this.bgRect);
