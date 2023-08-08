@@ -18,7 +18,7 @@ export default class PlayScreen extends Container<Entity> {
   constructor(w: number, h: number) {
     super();
     const level = this.level = new Level(w, h, CELL_SIZE);
-    const target = this.target = new Target(CELL_SIZE, CELL_SIZE);
+    const target = this.target = new Target(CELL_SIZE, CELL_SIZE, level.mapW, level.mapH);
     const bot = this.bot = new BotPlayer(level, target );
     const player = this.player = new Player(PlayScreen.controls, level);
 

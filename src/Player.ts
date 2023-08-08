@@ -7,7 +7,7 @@ import { clamp } from "./math";
 import { textures } from "./textures";
 
 export default class Player extends TileSprite {
-  speed = 320;
+  speed = 280;
   constructor(private controls: KeyboardControls, private map: Level) {
     super(textures.player1, CELL_SIZE, CELL_SIZE, { x: 0, y: 2 });
     this.pos.x = CELL_SIZE * 1;
@@ -18,7 +18,7 @@ export default class Player extends TileSprite {
   update(dt: number, t: number): void {
     let frame = this.frame.x;
     if(this.controls.x || this.controls.y) {
-      frame = Math.round(t * 15) % 4;
+      frame = Math.round(t * 10) % 4;
     }
     this.frame.x = frame;
     if (this.controls.x > 0) {
