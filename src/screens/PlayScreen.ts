@@ -1,9 +1,9 @@
 import Container from "../Container";
 import Entity from "../Entity";
-import  BotPlayer from "../BotPlayer";
+import  BotPlayer from "../entities/BotPlayer";
 import KeyboardControls from "../KeyControls";
-import Level from "../Level";
-import Player from "../Player";
+import Level from "../entities/Level";
+import Player from "../entities/Player";
 import Rect from "../Rect";
 import { CELL_SIZE } from "../constants";
 import Target from "../Target";

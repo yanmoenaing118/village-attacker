@@ -1,11 +1,11 @@
 import { js } from "easystarjs";
 import Level from "./Level";
 import Player from "./Player";
-import Rect from "./Rect";
-import { CELL_SIZE } from "./constants";
-import { Vec2 } from "./interfaces";
-import { clamp } from "./math";
-import { hit } from "./helpers";
+import Rect from "../Rect";
+import { CELL_SIZE } from "../constants";
+import { Vec2 } from "../interfaces";
+import { clamp } from "../math";
+import { hit } from "../helpers";
 
 const easystar = new js();
 

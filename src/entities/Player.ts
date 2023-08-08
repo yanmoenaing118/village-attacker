@@ -1,10 +1,10 @@
-import KeyboardControls from "./KeyControls";
+import KeyboardControls from "../KeyControls";
 import Level from "./Level";
-import TileSprite from "./TileSprite";
-import { CELL_SIZE, HEIGHT, WIDTH } from "./constants";
-import { bounds } from "./helpers";
-import { clamp } from "./math";
-import { textures } from "./textures";
+import TileSprite from "../TileSprite";
+import { CELL_SIZE, HEIGHT, WIDTH } from "../constants";
+import { bounds } from "../helpers";
+import { clamp } from "../math";
+import { textures } from "../textures";
 
 export default class Player extends TileSprite {
   speed = 280;

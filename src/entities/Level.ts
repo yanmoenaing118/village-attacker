@@ -1,9 +1,9 @@
 import { js as EasyStar} from "easystarjs";
-import Texture from "./Texture";
-import TileMap from "./TileMap";
-import { randOneFrom, randOneIn } from "./helpers";
-import { Frame } from "./interfaces";
-import { textures } from "./textures";
+import Texture from "../Texture";
+import TileMap from "../TileMap";
+import { randOneFrom, randOneIn } from "../helpers";
+import { Frame } from "../interfaces";
+import { textures } from "../textures";
 
 const tiles: Frame[] = [
   { x: 4, y: 2, solid: false }, // walkable dark path
