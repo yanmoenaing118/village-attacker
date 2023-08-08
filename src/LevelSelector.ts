@@ -9,6 +9,6 @@ export default class LevelSelector extends Container<Entity> {
     super();
     this.w = 320;
     this.h = 320;
-    this.children = [new LevelItem(textures.player1Lg, 32, 32)];
+    this.children = [new LevelItem(textures.player1Lg, 192, 192)];
   }
 }
