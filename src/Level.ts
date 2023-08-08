@@ -6,7 +6,7 @@ import { Frame } from "./interfaces";
 import { textures } from "./textures";
 
 const tiles: Frame[] = [
-  { x: 1, y: 2, solid: false }, // walkable dark path
+  { x: 4, y: 2, solid: false }, // walkable dark path
   { x: 13, y: 9, solid: true },
 ];
 
@@ -26,15 +26,13 @@ export default class Level extends TileMap {
       for (let x = 0; x < mapW; x++) {
         const index = y * mapW + x;
         frames[index] = tiles[0];
-
         if(x == 2 && y > 1 ) continue;
-
         if ( x == 0 || y == 0 || x == mapW - 1 || y == mapH - 1) {
           frames[index] = tiles[1];
           continue;
         }
 
-        if (y % 2 || x % 2 || randOneIn(mapW)) {
+        if (y % 2 || x % 2 || randOneIn(mapW + 2)) {
           continue;
         }
 

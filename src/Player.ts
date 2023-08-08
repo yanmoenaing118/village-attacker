@@ -9,14 +9,34 @@ import { textures } from "./textures";
 export default class Player extends TileSprite {
   speed = 320;
   constructor(private controls: KeyboardControls, private map: Level) {
-    super(textures.village, CELL_SIZE, CELL_SIZE, { x: 9, y: 9 });
+    super(textures.player1, CELL_SIZE, CELL_SIZE, { x: 0, y: 2 });
     this.pos.x = CELL_SIZE * 1;
     this.pos.y = (this.map.mapH - 3) * CELL_SIZE;
 
-    this.debug = true;
+    // this.debug = true;
   }
 
   update(dt: number, t: number): void {
+    let frame = this.frame.x;
+    if(this.controls.x || this.controls.y) {
+      frame = Math.round(t * 15) % 4;
+    }
+    this.frame.x = frame;
+    if (this.controls.x > 0) {
+      this.frame.y = 2;
+    } else if (this.controls.x < 0) {
+      this.frame.y = 1;
+    } else if (this.controls.y > 0) {
+      this.frame.y = 0;
+    } else if (this.controls.y < 0) {
+      this.frame.y = 3;
+    } else {
+      this.frame.x = this.frame.x;
+      this.frame.y = this.frame.y;
+    }
+
+    console.log(this.frame.x);
+
     let mx = this.controls.x * this.speed * dt;
     let my = this.controls.y * this.speed * dt;
 

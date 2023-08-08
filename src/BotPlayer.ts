@@ -12,7 +12,7 @@ const easystar = new js();
 export default class BotPlayer extends Rect {
   waypoints: Vec2[] = [];
   waypoint: Vec2;
-  speed = 320;
+  speed = 220;
 
   constructor(public map: Level, public target: Rect) {
     super(CELL_SIZE, CELL_SIZE, {
