@@ -76,7 +76,7 @@ export default class BotPlayer extends Rect {
     if (isXClose && isYClose) {
       
       if (this.waypoints.length == 0) {
-        this.findPath();
+        // this.findPath();
       } else {
         this.waypoint = this.map.mapToPixelPosition(this.waypoints.shift());
       }

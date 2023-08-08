@@ -12,7 +12,6 @@ export default class Player extends TileSprite {
     super(textures.player1, CELL_SIZE, CELL_SIZE, { x: 0, y: 2 });
     this.pos.x = CELL_SIZE * 1;
     this.pos.y = (this.map.mapH - 3) * CELL_SIZE;
-
     // this.debug = true;
   }
 
