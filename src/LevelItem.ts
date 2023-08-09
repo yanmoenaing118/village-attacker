@@ -18,18 +18,10 @@ export default class LevelItem extends Container<Entity> {
     this.h = h;
     this.levelPicture = new Sprite(texture);
     this.selectBorder = new Rect(w, h);
-    // this.add(this.levelPicture);
+    this.levelPicture.w = w;
+    this.levelPicture.h = h;
+    this.add(this.levelPicture);
   }
 
-  update(dt: number, t: number): void {
-    if(this.hovered) {
-        if(!this.has(this.selectBorder)) {
-            this.add(this.selectBorder)
-        }
-    } else {
-        if(this.has(this.selectBorder)) {
-            this.remove(this.selectBorder);
-        }
-    }
-  }
+  
 }

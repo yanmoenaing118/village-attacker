@@ -23,5 +23,7 @@ export default class StartScreen extends Container<Entity> {
     this.add(this.bgRect);
     this.add(this.startText);
     this.add(new LevelSelector())
+
+    console.log(this);
   }
 }

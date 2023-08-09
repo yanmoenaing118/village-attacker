@@ -34,7 +34,7 @@ export default class Player extends TileSprite {
       this.frame.y = this.frame.y;
     }
 
-    console.log(this.frame.x);
+    // console.log(this.frame.x);
 
     let mx = this.controls.x * this.speed * dt;
     let my = this.controls.y * this.speed * dt;

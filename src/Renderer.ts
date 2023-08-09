@@ -1,6 +1,7 @@
 import Container from "./Container";
 import DebugGrid from "./DebugGrid";
 import Entity from "./Entity";
+import LevelSelector from "./LevelSelector";
 import Rect from "./Rect";
 import Sprite from "./Sprite";
 import Text from "./Text";
@@ -40,71 +41,67 @@ export default class Renderer {
   render(container: Container<Entity>) {
     const { ctx } = this;
 
-    console.log(container);
+    container.children.forEach((child) => {
+      const { pos, scale, w, h } = child;
+      ctx.save();
 
-    const renderRect = (container: Container<Entity>) => {
-      container.children.forEach((child) => {
-        
-        const { pos, scale, w, h } = child;
+      ctx.translate(pos.x, pos.y);
+      ctx.scale(scale.x, scale.y);
+
+      if (child instanceof TileSprite) {
+        const { frame } = child;
+        ctx.drawImage(
+          child.texture.img,
+          frame.x * w,
+          frame.y * h,
+          w,
+          h,
+          0,
+          0,
+          w,
+          h
+        );
+        // debugger
+      } else if (child instanceof Sprite) {
+        ctx.drawImage(child.texture.img, 0, 0, w, h);
+      } else if (child instanceof DebugGrid) {
+        this.renderDebugGrid(child);
+      } else if (child instanceof Rect) {
+        ctx.fillStyle = child.styles.fill || "black";
+        ctx.fillRect(0, 0, child.w, child.h);
+        if (child.styles.stroke) {
+          ctx.strokeStyle = child.styles.stroke;
+          ctx.strokeRect(0, 0, child.w, child.h);
+        }
+      } else if (child instanceof Text) {
+        ctx.fillStyle = child.style.fill;
+        ctx.strokeStyle = child.style.stroke;
+        ctx.font = child.style.font;
+        ctx.fillText(child.text, 0, 0);
+      }
+
+      if (child.debug) {
         ctx.save();
-
-        ctx.translate(pos.x, pos.y);
-        ctx.scale(scale.x, scale.y);
-
-        if (child instanceof TileSprite) {
-          const { frame } = child;
-          ctx.drawImage(
-            child.texture.img,
-            frame.x * w,
-            frame.y * h,
-            w,
-            h,
-            0,
-            0,
-            w,
-            h
-          );
-          // debugger
-        } else if (child instanceof Sprite) {
-          ctx.drawImage(child.texture.img, 0, 0, w, h);
-        } else if (child instanceof DebugGrid) {
-          this.renderDebugGrid(child);
-        } else if (child instanceof Rect) {
-          ctx.fillStyle = child.styles.fill || "black";
-          ctx.fillRect(0, 0, child.w, child.h);
-          if (child.styles.stroke) {
-            ctx.strokeStyle = child.styles.stroke;
-            ctx.strokeRect(0, 0, child.w, child.h);
-          }
-        } else if (child instanceof Text) {
-          ctx.fillStyle = child.style.fill;
-          ctx.strokeStyle = child.style.stroke;
-          ctx.font = child.style.font;
-          ctx.fillText(child.text, 0, 0);
-        }
-
-        if (child.debug) {
-          ctx.save();
-          ctx.fillStyle = "rgba(0,0,0,0.3)";
-          ctx.fillRect(
-            child.hitBox.x,
-            child.hitBox.y,
-            child.hitBox.w,
-            child.hitBox.h
-          );
-          ctx.restore();
-        }
-
-        if (child instanceof Container) {
-          renderRect(child);
-        }
-
+        ctx.fillStyle = "rgba(0,0,0,0.3)";
+        ctx.fillRect(
+          child.hitBox.x,
+          child.hitBox.y,
+          child.hitBox.w,
+          child.hitBox.h
+        );
         ctx.restore();
-      });
-      
-    };
+      }
 
-    renderRect(container);
+      if (child instanceof Container) {
+        if(child instanceof LevelSelector) {
+          // console.log(child.children)
+        }
+        this.render(child);
+      }
+
+      ctx.restore();
+    });
+
   }
 
   renderDebugGrid(grid: DebugGrid) {
