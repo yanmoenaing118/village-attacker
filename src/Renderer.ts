@@ -71,6 +71,7 @@ export default class Renderer {
         ctx.fillRect(0, 0, child.w, child.h);
         if (child.styles.stroke) {
           ctx.strokeStyle = child.styles.stroke;
+          ctx.lineWidth = child.styles.strokeWidth || 1;
           ctx.strokeRect(0, 0, child.w, child.h);
         }
       } else if (child instanceof Text) {

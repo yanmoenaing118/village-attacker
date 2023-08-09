@@ -17,9 +17,14 @@ export default class LevelItem extends Container<Entity> {
     this.w = w;
     this.h = h;
     this.levelPicture = new Sprite(texture);
-    this.selectBorder = new Rect(w, h);
+    this.selectBorder = new Rect(w, h, {
+      fill: 'rgba(225,225,225,0.9)',
+      stroke: 'lightgreen',
+      strokeWidth: 3
+    });
     this.levelPicture.w = w;
     this.levelPicture.h = h;
+    this.add(this.selectBorder);
     this.add(this.levelPicture);
   }
 
