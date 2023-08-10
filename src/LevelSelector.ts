@@ -32,7 +32,7 @@ export default class LevelSelector extends Container<Entity> {
   update(dt: number, t: number): void {
     const { pos } = this;
     this.children.forEach((child: LevelItem) => {
-      child.clicked = false;
+      // child.clicked = false;
       // child.hovered = false;
       const bounds = {
         x: pos.x + child.pos.x,
@@ -43,6 +43,9 @@ export default class LevelSelector extends Container<Entity> {
       if (mouseControl.clicked) {
         if (insideRect({ x: mouseControl.x, y: mouseControl.y }, bounds)) {
           child.clicked = !child.clicked;
+          console.log(child.clicked)
+        } else {
+          child.clicked = false;
         }
       }
       super.update(dt, t);
