@@ -2,6 +2,7 @@ import Container from "./Container";
 import DebugGrid from "./DebugGrid";
 import Entity from "./Entity";
 import LevelSelector from "./LevelSelector";
+import PathRect from "./PathRect";
 import Rect from "./Rect";
 import Sprite from "./Sprite";
 import Text from "./Text";
@@ -79,6 +80,19 @@ export default class Renderer {
         ctx.strokeStyle = child.style.stroke;
         ctx.font = child.style.font;
         ctx.fillText(child.text, 0, 0);
+      } else if (child instanceof PathRect) {
+        const { fill, stroke, strokeWidth } = child.styles;
+        if(fill) ctx.fillStyle = fill;
+        if(child.clicked) {
+          ctx.strokeStyle = 'black'
+        } else {
+          ctx.strokeStyle = 'transparent';
+        }
+        if(strokeWidth) ctx.lineWidth = 3;
+        ctx.fill(child.path);
+        if(child.clicked) {
+          ctx.stroke(child.path);
+        }
       }
 
       if (child.debug) {

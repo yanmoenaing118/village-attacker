@@ -3,6 +3,7 @@ import Entity from "./Entity";
 import Renderer from "./Renderer";
 import { MAX_DELTA } from "./constants";
 import { update } from "./func-types";
+import { Vec2 } from "./interfaces";
 
 export default class Game {
   renderer: Renderer;
@@ -10,6 +11,8 @@ export default class Game {
   booted = false;
   w: number;
   h: number;
+  mousePos: Vec2;
+  ctx: CanvasRenderingContext2D;
 
   constructor(w: number, h: number) {
     this.w = w;
@@ -23,6 +26,13 @@ export default class Game {
         this.w = window.innerWidth;
         this.h = window.innerHeight;
         this.renderer = new Renderer(this.w, this.h);
+        this.ctx = this.renderer.ctx;
+        this.renderer.canvas.addEventListener("click", (e) => {
+          this.mousePos = {
+            x: e.offsetX,
+            y: e.offsetY,
+          };
+        });
         resolve(this);
       });
     });
