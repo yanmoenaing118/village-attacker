@@ -9,6 +9,7 @@ export default class Container<T extends Entity> extends Entity {
   }
 
   add(child: T): T {
+    if(this.children.includes(child)) return;
     this.children.push(child);
     return child;
   }

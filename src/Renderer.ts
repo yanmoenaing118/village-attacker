@@ -2,6 +2,7 @@ import Container from "./Container";
 import DebugGrid from "./DebugGrid";
 import Entity from "./Entity";
 import LevelSelector from "./LevelSelector";
+import PathRect from "./PathRect";
 import Rect from "./Rect";
 import Sprite from "./Sprite";
 import Text from "./Text";
@@ -79,7 +80,7 @@ export default class Renderer {
         ctx.strokeStyle = child.style.stroke;
         ctx.font = child.style.font;
         ctx.fillText(child.text, 0, 0);
-      }
+      } 
 
       if (child.debug) {
         ctx.save();
