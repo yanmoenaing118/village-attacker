@@ -1,8 +1,11 @@
+import { mouseControl } from ".";
 import Container from "./Container";
 import Entity from "./Entity";
+import MouseControl from "./MouseControls";
 import Rect from "./Rect";
 import Sprite from "./Sprite";
 import Texture from "./Texture";
+import { insideRect } from "./helpers";
 
 export default class LevelItem extends Container<Entity> {
   hovered: boolean;

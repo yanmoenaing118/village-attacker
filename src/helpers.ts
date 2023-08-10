@@ -1,5 +1,5 @@
 import Entity from "./Entity";
-import { Bounds } from "./interfaces";
+import { Bounds, Vec2 } from "./interfaces";
 
 
 export function randf(min?: number, max?: number): number {
@@ -46,5 +46,15 @@ export const hit = (e1: Entity, e2: Entity) => {
     b1.x + b1.w >= b2.x &&
     b1.y <= b2.y + b2.h &&
     b1.y + b1.h >= b2.y
+  );
+};
+
+
+export const insideRect = (mousePos: Vec2, bounds: Bounds) => {
+  return (
+    mousePos.x > bounds.x &&
+    mousePos.x < bounds.x + bounds.w &&
+    mousePos.y > bounds.y &&
+    mousePos.y < bounds.y + bounds.h
   );
 };

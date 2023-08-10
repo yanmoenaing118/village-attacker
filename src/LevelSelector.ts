@@ -1,7 +1,9 @@
+import { mouseControl } from ".";
 import Container from "./Container";
 import Entity from "./Entity";
 import LevelItem from "./LevelItem";
 import { HEIGHT, WIDTH } from "./constants";
+import { insideRect } from "./helpers";
 import { textures } from "./textures";
 
 export default class LevelSelector extends Container<Entity> {
@@ -25,5 +27,22 @@ export default class LevelSelector extends Container<Entity> {
     this.children = items;
     this.pos.x = w / 2 - this.itemSize * items.length * 0.5;
     this.pos.y = h / 2 - this.itemSize;
+  }
+
+  update(dt: number, t: number): void {
+    const { pos } = this;
+    this.children.forEach((child: LevelItem) => {
+      const bounds = {
+        x: pos.x + child.pos.x,
+        y: pos.y + child.pos.y,
+        w: child.w,
+        h: child.h,
+      };
+      if(insideRect( mouseControl, bounds )) {
+        console.log(child.levelPicture.texture.img.src)
+      }
+    });
+
+    mouseControl.update();
   }
 }
