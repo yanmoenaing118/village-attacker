@@ -11,7 +11,7 @@ export default class Game {
   booted = false;
   w: number;
   h: number;
-  mousePos: Vec2;
+  mousePos: Vec2 = { x: 0, y: 0};
   ctx: CanvasRenderingContext2D;
 
   constructor(w: number, h: number) {

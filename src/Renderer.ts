@@ -88,6 +88,7 @@ export default class Renderer {
         } else {
           ctx.strokeStyle = 'transparent';
         }
+        ctx.beginPath();
         if(strokeWidth) ctx.lineWidth = 3;
         ctx.fill(child.path);
         if(child.clicked) {
