@@ -40,16 +40,19 @@ export default class LevelSelector extends Container<Entity> {
         w: child.w,
         h: child.h,
       };
-      if (mouseControl.clicked) {
-        if (insideRect({ x: mouseControl.x, y: mouseControl.y }, bounds)) {
-          child.clicked = !child.clicked;
-          console.log(child.clicked)
-        } else {
-          child.clicked = false;
-        }
+      if (
+        child.clicked &&
+        insideRect({ x: mouseControl.x, y: mouseControl.y }, bounds)
+      ) {
+        child.clicked = false;
+      } else if (
+        !child.clicked &&
+        insideRect({ x: mouseControl.x, y: mouseControl.y }, bounds)
+      ) {
+        child.clicked = true;
       }
+
       super.update(dt, t);
-      mouseControl.update();
     });
   }
 }
