@@ -1,7 +1,6 @@
 import Container from "./Container";
 import DebugGrid from "./DebugGrid";
 import Entity from "./Entity";
-import LevelSelector from "./LevelSelector";
 import PathRect from "./PathRect";
 import Rect from "./Rect";
 import Sprite from "./Sprite";
@@ -16,7 +15,7 @@ export default class Renderer {
 
   constructor(width: number, height: number) {
     const canvas = document.createElement("canvas");
-    document.body.appendChild(canvas);
+    // document.body.appendChild(canvas);
 
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
@@ -80,7 +79,7 @@ export default class Renderer {
         ctx.strokeStyle = child.style.stroke;
         ctx.font = child.style.font;
         ctx.fillText(child.text, 0, 0);
-      } 
+      }
 
       if (child.debug) {
         ctx.save();
@@ -95,15 +94,11 @@ export default class Renderer {
       }
 
       if (child instanceof Container) {
-        if(child instanceof LevelSelector) {
-          // console.log(child.children)
-        }
         this.render(child);
       }
 
       ctx.restore();
     });
-
   }
 
   renderDebugGrid(grid: DebugGrid) {

@@ -5,9 +5,9 @@ import village from "./assets/village.png";
 import soliders from "./assets/solider.png";
 import soldier from "./assets/soldier-pack.png"
 import player1 from "./assets/pixel/Arch-Curate_Alwilda_by_dracoyan.png";
-import player1Lg from "./assets/mugshoot/Darkrai_Novice_f_0_192_by_eysselia.png";
-import player2Lg from "./assets/mugshoot/Darkrai_Cultist_m_0_192_by_eysselia.png";
-import player3Lg from "./assets/mugshoot/Arch-Curate_Alwilda_192_by_eysselia.png";
+import player1Lg from "./assets/mugshoot/char-1.png";
+import player2Lg from "./assets/mugshoot/char-2.png";
+import player3Lg from "./assets/mugshoot/char-3.png";
 
 export const textures = {
   dungeon: new Texture(dungeon),

@@ -1,28 +1,25 @@
-import Container from "../Container";
-import Entity from "../Entity";
-import LevelSelector from "../LevelSelector";
-import Rect from "../Rect";
-import Text from "../Text";
+import { setStyles } from "../dom-helpers";
+import LevelSelector from "./CharacterSelector";
 
-export default class StartScreen extends Container<Entity> {
-  bgRect: Rect;
-  startText: Text;
-  constructor(w: number, h: number) {
-    super();
-    this.bgRect = new Rect(w, h);
-    this.startText = new Text("Race between Robot and The Human", {
-      fill: "white",
-      stroke: "transparent",
-      font: "52px monospace",
+export default class StartScreen {
+  el: HTMLDivElement;
+
+  constructor() {
+    const el = document.createElement("div");
+    this.el = el;
+    document.body.appendChild(this.el);
+
+    const levelSelector = new LevelSelector();
+
+    this.el.appendChild(levelSelector.el);
+
+    setStyles(this.el, {
+      width: "100%",
+      height: "100vh",
+      position: "fixed",
+      top: "0",
+      left: "0",
+      backgroundColor: "black",
     });
-
-    this.startText.pos.x = w / 2 - (w / 2) * 0.6;
-    this.startText.pos.y = h / 2;
-
-    
-    this.add(this.bgRect);
-    this.add(new LevelSelector(w, h))
-
-    console.log(this);
   }
 }
