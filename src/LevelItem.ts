@@ -35,7 +35,7 @@ export default class LevelItem extends Container<Entity> {
       if(this.clicked) {
         this.add(this.selectBorder);
       } else {
-        // this.remove(this.selectBorder);
+        this.remove(this.selectBorder);
       }
 
       // if(this.hovered) {

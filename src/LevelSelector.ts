@@ -31,28 +31,28 @@ export default class LevelSelector extends Container<Entity> {
 
   update(dt: number, t: number): void {
     const { pos } = this;
+
     this.children.forEach((child: LevelItem) => {
-      // child.clicked = false;
-      // child.hovered = false;
       const bounds = {
         x: pos.x + child.pos.x,
         y: pos.y + child.pos.y,
         w: child.w,
         h: child.h,
       };
-      if (
-        child.clicked &&
-        insideRect({ x: mouseControl.x, y: mouseControl.y }, bounds)
-      ) {
-        child.clicked = false;
-      } else if (
-        !child.clicked &&
-        insideRect({ x: mouseControl.x, y: mouseControl.y }, bounds)
-      ) {
-        child.clicked = true;
-      }
 
-      super.update(dt, t);
+      const mouse = {
+        x: mouseControl.x,
+        y: mouseControl.y,
+      };
+
+      if (mouseControl.pressed) {
+        if (insideRect(mouse, bounds)) {
+          child.clicked = !child.clicked;
+        }
+      } 
     });
+
+    mouseControl.update();
+    super.update(dt, t);
   }
 }
