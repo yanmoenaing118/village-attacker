@@ -7,6 +7,6 @@ export default class Target extends Rect {
       fill: "rgba(255,0,0,0.5)",
     });
     this.pos.x = CELL_SIZE * ( mapW - 2 );
-    this.pos.y = CELL_SIZE * ( Math.floor(Math.random() * mapH) );
+    this.pos.y = CELL_SIZE * ( mapH / 2 );
   }
 }
