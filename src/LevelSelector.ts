@@ -2,7 +2,7 @@ import { mouseControl } from ".";
 import Container from "./Container";
 import Entity from "./Entity";
 import LevelItem from "./LevelItem";
-import { HEIGHT, WIDTH } from "./constants";
+import Text from "./Text";
 import { insideRect } from "./helpers";
 import { textures } from "./textures";
 
@@ -10,8 +10,13 @@ export default class LevelSelector extends Container<Entity> {
   gap = 20;
   levelItems: LevelItem[] = [];
   itemSize = 192;
+  levelTitle: Text;
   constructor(w: number, h: number) {
     super();
+    this.levelTitle = new Text("Select Your Hero", {
+      fill: "white",
+      font: "28px monospace"
+    });
     const items = [
       new LevelItem(textures.player1Lg, this.itemSize, this.itemSize),
       new LevelItem(textures.player2Lg, this.itemSize, this.itemSize),
@@ -22,11 +27,13 @@ export default class LevelSelector extends Container<Entity> {
       if (i > 0) {
         gap = 12;
       }
+      item.pos.y = 32;
       item.pos.x = i * item.w + gap * i;
     });
     this.children = items;
-    this.pos.x = w / 2 - this.itemSize * items.length * 0.5;
-    this.pos.y = h / 2 - this.itemSize;
+    this.children.push(this.levelTitle);
+    this.pos.x = w / 2 - this.itemSize * items.length * 0.4;
+    this.pos.y = h / 2 * 0.65;
   }
 
   update(dt: number, t: number): void {
@@ -46,10 +53,11 @@ export default class LevelSelector extends Container<Entity> {
       };
 
       if (mouseControl.pressed) {
+        child.clicked = false;
         if (insideRect(mouse, bounds)) {
-          child.clicked = !child.clicked;
+          child.clicked = true;
         }
-      } 
+      }
     });
 
     mouseControl.update();
