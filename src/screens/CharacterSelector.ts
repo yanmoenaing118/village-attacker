@@ -49,6 +49,7 @@ export default class LevelSelector {
       });
       item.addEventListener("click", () => {
         STATE.level = item.id;
+        item.classList.toggle('border');
       });
       el.appendChild(item);
     }

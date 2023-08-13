@@ -13,6 +13,7 @@ export default class BotPlayer extends Rect {
   waypoints: Vec2[] = [];
   waypoint: Vec2;
   speed = 220;
+  delay = 1;
 
   constructor(public map: Level, public target: Rect) {
     super(CELL_SIZE, CELL_SIZE, {
@@ -40,6 +41,7 @@ export default class BotPlayer extends Rect {
     if (!this.waypoint) {
       this.waypoint = { ...this.pos };
     }
+    if(((this.delay -= dt) > 0)) return;
     this.moveAlongPath(dt);
     this.pos.x = clamp(this.pos.x, 0, this.map.w - this.w);
     this.pos.y = clamp(this.pos.y, 0, this.map.h - this.h);

@@ -11,3 +11,13 @@ body {
 canvas {
     margin: auto;
 }
+
+#level_0:hover,
+#level_1:hover,
+#level_2:hover {
+    border: 2px solid green;
+}
+
+.border {
+    border: 2px solid green;
+}
